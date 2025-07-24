@@ -1,0 +1,20 @@
+{
+  "name": "Echowave",
+  "short_name": "Echowave",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#1db954",
+  "icons": [
+    {
+      "src": "icons/echowave2.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/echowave.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
