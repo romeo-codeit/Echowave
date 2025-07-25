@@ -125,32 +125,56 @@ body {
   max-width: 240px;
   appearance: none;
   height: 4px;
-  background: var(--primary-color, #1db954);
+  /* Updated background with gradient for two-color effect */
+  background: linear-gradient(
+    to right,
+    var(--primary-color, #1db954) 0%,
+    var(--primary-color, #1db954) var(--slider-progress, 100%),
+    #666 var(--slider-progress, 100%),
+    #666 100%
+  );
   border-radius: 5px;
   outline: none;
   transition: background 0.3s ease;
 }
 
-/* Optional: enhance the slider thumb */
+/* Enhanced slider thumb with better styling */
 #volumeSlider::-webkit-slider-thumb {
   appearance: none;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: var(--text-color, #fff);
   border-radius: 50%;
   cursor: pointer;
-  border: none;
+  border: 2px solid var(--primary-color, #1db954);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
 }
 
 #volumeSlider::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: var(--text-color, #fff);
   border-radius: 50%;
   cursor: pointer;
-  border: none;
+  border: 2px solid var(--primary-color, #1db954);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
 }
 
+/* Remove default track styling for Firefox */
+#volumeSlider::-moz-range-track {
+  background: transparent;
+}
+
+/* Hover effects */
+#volumeSlider:hover::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+#volumeSlider:hover::-moz-range-thumb {
+  transform: scale(1.15);
+}
 
 
 
