@@ -7,12 +7,12 @@
   "theme_color": "#1db954",
   "icons": [
     {
-      "src": "icons/echowave2.png",
+      "src": "icons/echoicon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons/echowave.png",
+      "src": "icons/echoicon.png",
       "sizes": "512x512",
       "type": "image/png"
     }

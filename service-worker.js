@@ -6,8 +6,8 @@ self.addEventListener("install", (e) => {
         "/index.html",
         "/css/styles.css",
         "/js/index.js",
-        "/icons/echowave2.png",
-        "/icons/echowave.png"
+        "/icons/echoicon.png",
+        "/icons/echoicon.png"
       ]);
     })
   );

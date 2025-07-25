@@ -260,6 +260,16 @@ body {
   color: white;
 }
 
+#visualizerCanvas {
+  width: 100%;
+  height: 100px;
+  background-color: transparent;
+  display: block;
+  margin: 1rem 0;
+}
+
+
+
 .library, .search, .settings {
   max-width: 800px;
   margin: 0 auto;
