@@ -711,11 +711,16 @@ function setupVolumeControl() {
   currentAudio.volume = volume;
   volumeSlider.value = volume;
   
+  // Set initial slider progress styling
+  const percentage = volume * 100;
+  volumeSlider.style.setProperty('--slider-progress', `${percentage}%`);
+  
   // Update volume icon based on level
   updateVolumeIcon(volume);
   
   debugLog('Volume control initialized, volume:', volume);
 }
+
 
 function updateVolumeIcon(volume) {
   if (!volumeIcon) return;
@@ -807,6 +812,11 @@ if (volumeSlider) {
     currentAudio.volume = volume;
     localStorage.setItem('volume', volume);
     updateVolumeIcon(volume);
+    
+    // Update the slider progress for visual styling
+    const percentage = volume * 100;
+    volumeSlider.style.setProperty('--slider-progress', `${percentage}%`);
+    
     debugLog('Volume changed to:', volume);
   });
 }
