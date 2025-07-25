@@ -19,6 +19,8 @@ const songList = document.getElementById("songList");
 const searchInput = document.getElementById("searchInput");
 const searchResults = document.getElementById("searchResults");
 const themeToggle = document.getElementById("themeToggle");
+const volumeSlider = document.getElementById("volumeSlider");
+const volumeIcon = document.getElementById("volumeIcon");
 
 let currentAudio = new Audio();
 let currentSongIndex = -1;
@@ -697,6 +699,49 @@ function updatePlayPauseIcon() {
   }
 }
 
+// ======= Volume Control Functions =======
+function setupVolumeControl() {
+  if (!volumeSlider) return;
+  
+  // Load saved volume or default to 1
+  const savedVolume = localStorage.getItem('volume');
+  const volume = savedVolume !== null ? parseFloat(savedVolume) : 1;
+  
+  // Set initial volume
+  currentAudio.volume = volume;
+  volumeSlider.value = volume;
+  
+  // Update volume icon based on level
+  updateVolumeIcon(volume);
+  
+  debugLog('Volume control initialized, volume:', volume);
+}
+
+function updateVolumeIcon(volume) {
+  if (!volumeIcon) return;
+  
+  if (volume === 0) {
+    // Muted icon
+    volumeIcon.innerHTML = `
+      <path d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10H1.5A.5.5 0 0 1 1 9.5v-3a.5.5 0 0 1 .5-.5h2.325l2.363-2.39a.5.5 0 0 1 .529-.06zM9.5 6a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V7.414L8.354 8.06a.5.5 0 0 1-.708-.708L9.293 6H9.5z"/>
+    `;
+  } else if (volume < 0.5) {
+    // Low volume icon
+    volumeIcon.innerHTML = `
+      <path d="M9.717 3.55A.5.5 0 0 1 10 4v8a.5.5 0 0 1-.812.39L6.825 10H4.5A.5.5 0 0 1 4 9.5v-3a.5.5 0 0 1 .5-.5h2.325l2.363-2.39a.5.5 0 0 1 .529-.06z"/>
+      <path d="M11.025 8a.5.5 0 0 1 .9 0 2.5 2.5 0 0 1 0 2.236.5.5 0 1 1-.9-.472 1.5 1.5 0 0 0 0-1.764z"/>
+    `;
+  } else {
+    // High volume icon
+    volumeIcon.innerHTML = `
+      <path d="M9.717 3.55A.5.5 0 0 1 10 4v8a.5.5 0 0 1-.812.39L6.825 10H4.5A.5.5 0 0 1 4 9.5v-3a.5.5 0 0 1 .5-.5h2.325l2.363-2.39a.5.5 0 0 1 .529-.06z"/>
+      <path d="M11.025 8a.5.5 0 0 1 .9 0 6 6 0 0 1 0 5.373.5.5 0 1 1-.9-.746 5 5 0 0 0 0-3.881z"/>
+      <path d="M12.16 6.867a.5.5 0 0 1 .708.708 2.5 2.5 0 0 1 0 3.536.5.5 0 1 1-.708-.708 1.5 1.5 0 0 0 0-2.122z"/>
+    `;
+  }
+}
+
+
 // ======= Event Listeners =======
 if (playPauseBtn) {
   playPauseBtn.addEventListener("click", () => {
@@ -754,6 +799,16 @@ if (shuffleBtn) {
 
 if (loopBtn) {
   loopBtn.addEventListener("click", toggleLoop);
+}
+
+if (volumeSlider) {
+  volumeSlider.addEventListener("input", (e) => {
+    const volume = parseFloat(e.target.value);
+    currentAudio.volume = volume;
+    localStorage.setItem('volume', volume);
+    updateVolumeIcon(volume);
+    debugLog('Volume changed to:', volume);
+  });
 }
 
 // Set initial icons for all buttons
@@ -941,6 +996,9 @@ async function initApp() {
     loadCurrentSongFromStorage();
     debugLog('Current song loaded from storage');
 
+    setupVolumeControl();
+    debugLog('Volume control initialized');
+
     updatePlayPauseIcon();
     
     // Initialize audio context on user interaction
@@ -978,6 +1036,7 @@ async function initApp() {
     console.log('Audio element:', currentAudio);
     console.log('Play button element:', playPauseBtn);
     console.log('Song list element:', songList);
+    console.log('Volume slider element:', volumeSlider);
     console.log('===============================');
     
   } catch (error) {
